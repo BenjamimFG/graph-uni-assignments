@@ -7,6 +7,7 @@ from assignments.a07 import assignment_07
 from assignments.a08 import assignment_08
 from assignments.a09 import assignment_09
 from assignments.a10 import assignment_10
+from assignments.a11 import assignment_11
 
 # assignment_02()
 # assignment_03()
@@ -15,4 +16,5 @@ from assignments.a10 import assignment_10
 # assignment_07()
 # assignment_08()
 # assignment_09()
-assignment_10()
+# assignment_10()
+assignment_11()
