@@ -32,9 +32,9 @@ def dijkstra(graph: Graph, origin_vertex: int) -> "tuple[list[int], list[int]]":
     return (dist, prev)
 
 
-def bellman_ford(graph: Graph, origin_vertex: int) -> "tuple[list[int], list[int]]":
+def bellman_ford(graph: Graph, origin_vertex: int, check_negative_weight_cycle=True) -> "tuple[list[int], list[int]]":
     dist = [inf] * len(graph.vs)
-    prev = [None] * len(graph.vs)
+    prev = [-1] * len(graph.vs)
 
     dist[origin_vertex] = 0
 
@@ -42,15 +42,16 @@ def bellman_ford(graph: Graph, origin_vertex: int) -> "tuple[list[int], list[int
         for e in graph.es:
             u = e.source
             v = e.target
-            if dist[u] + e["weight"] < dist[v]:
+            if dist[u] + e["weight"] < dist[v] and e['weight'] != 0:
                 dist[v] = dist[u] + e["weight"]
                 prev[v] = e.source
 
-    for e in graph.es:
-        u = e.source
-        v = e.target
-        if dist[u] + e["weight"] < dist[v]:
-            raise Error("Graph has negative weight cycle.")
+    if check_negative_weight_cycle:
+        for e in graph.es:
+            u = e.source
+            v = e.target
+            if dist[u] + e["weight"] < dist[v]:
+                raise Error("Graph has negative weight cycle.")
 
     return (dist, prev)
 
